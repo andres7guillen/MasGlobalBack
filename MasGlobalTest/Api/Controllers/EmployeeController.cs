@@ -21,15 +21,22 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> getEmployeeById(int id)
         {
-            var result = await _service.getEmployeeById(id);
-            if (result == null)
+            try
             {
-                return NotFound();
+                var result = await _service.getEmployeeById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
             }
-            else
+            catch (Exception e)
             {
-                return Ok(result);
-            }
+                return BadRequest(e.Message);
+            }            
         }
 
         [HttpGet("GetEmployees")]
@@ -42,15 +49,29 @@ namespace Api.Controllers
         [HttpGet("getEmployeesByHourlySalary")]
         public async Task<IActionResult> getEmployeesByHourlySalary()
         {
-            var result = await _service.getEmployeesByHourlySalary();
-            return Ok(result);
+            try
+            {
+                var result = await _service.getEmployeesByHourlySalary();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }           
         }
 
         [HttpGet("getEmployeesByMonthlySalary")]
         public async Task<IActionResult> getEmployeesByMonthlySalary()
         {
-            var result = await _service.getEmployeesByMonthlySalary();
-            return Ok(result);
+            try
+            {
+                var result = await _service.getEmployeesByMonthlySalary();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }            
         }
 
     }
